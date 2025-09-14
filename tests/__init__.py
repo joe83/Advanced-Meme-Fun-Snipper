@@ -1,0 +1,1 @@
+"""Test package for Advanced Meme Fun Snipper."""
