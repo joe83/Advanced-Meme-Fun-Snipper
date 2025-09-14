@@ -91,42 +91,18 @@ class Settings(BaseSettings):
             raise ValueError(f'Invalid Solana public key: {e}')
         return v
     
-    class Config:
-        env_file = '.env'
-        env_nested_delimiter = '__'
-        case_sensitive = False
+    model_config = {
+        'env_file': '.env',
+        'env_nested_delimiter': '__',
+        'case_sensitive': False,
+        'extra': 'forbid'
+    }
 
     @classmethod
     def from_env(cls) -> 'Settings':
         """Load settings from environment with better error handling."""
         try:
-            # Override defaults with environment variables
-            env_overrides = {}
-            
-            # Trading config from env
-            if os.getenv('BUY_AMOUNT_SOL'):
-                env_overrides.setdefault('trading', {})['buy_amount_sol'] = float(os.getenv('BUY_AMOUNT_SOL'))
-            if os.getenv('MIN_LIQUIDITY_USD'):
-                env_overrides.setdefault('trading', {})['min_liquidity_usd'] = float(os.getenv('MIN_LIQUIDITY_USD'))
-            if os.getenv('MIN_MARKET_CAP_USD'):
-                env_overrides.setdefault('trading', {})['min_market_cap_usd'] = float(os.getenv('MIN_MARKET_CAP_USD'))
-            if os.getenv('TAKE_PROFIT_MULTIPLIER'):
-                env_overrides.setdefault('trading', {})['take_profit_multiplier'] = float(os.getenv('TAKE_PROFIT_MULTIPLIER'))
-            if os.getenv('STOP_LOSS_MULTIPLIER'):
-                env_overrides.setdefault('trading', {})['stop_loss_multiplier'] = float(os.getenv('STOP_LOSS_MULTIPLIER'))
-            if os.getenv('TRAILING_STOP_PERCENT'):
-                env_overrides.setdefault('trading', {})['trailing_stop_percent'] = float(os.getenv('TRAILING_STOP_PERCENT'))
-            if os.getenv('MAX_HOLD_TIME_MIN'):
-                env_overrides.setdefault('trading', {})['max_hold_time_min'] = int(os.getenv('MAX_HOLD_TIME_MIN'))
-            if os.getenv('JITO_BASE_TIP'):
-                env_overrides.setdefault('trading', {})['jito_base_tip'] = int(os.getenv('JITO_BASE_TIP'))
-            
-            # Apply overrides to model defaults
-            if env_overrides.get('trading'):
-                trading_config = TradingConfig(**env_overrides['trading'])
-                env_overrides['trading'] = trading_config
-            
-            return cls(**env_overrides)
+            return cls()
         except Exception as e:
             raise ValueError(f"Configuration validation failed: {e}")
 
