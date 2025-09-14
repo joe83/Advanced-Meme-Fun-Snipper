@@ -95,16 +95,6 @@ class Settings(BaseSettings):
         env_file = '.env'
         env_nested_delimiter = '__'
         case_sensitive = False
-        
-        # Map environment variables to nested configs
-        fields = {
-            'trading': {
-                'env_prefix': 'TRADING_',
-            },
-            'risk': {
-                'env_prefix': 'RISK_',
-            }
-        }
 
     @classmethod
     def from_env(cls) -> 'Settings':
@@ -116,6 +106,10 @@ class Settings(BaseSettings):
             # Trading config from env
             if os.getenv('BUY_AMOUNT_SOL'):
                 env_overrides.setdefault('trading', {})['buy_amount_sol'] = float(os.getenv('BUY_AMOUNT_SOL'))
+            if os.getenv('MIN_LIQUIDITY_USD'):
+                env_overrides.setdefault('trading', {})['min_liquidity_usd'] = float(os.getenv('MIN_LIQUIDITY_USD'))
+            if os.getenv('MIN_MARKET_CAP_USD'):
+                env_overrides.setdefault('trading', {})['min_market_cap_usd'] = float(os.getenv('MIN_MARKET_CAP_USD'))
             if os.getenv('TAKE_PROFIT_MULTIPLIER'):
                 env_overrides.setdefault('trading', {})['take_profit_multiplier'] = float(os.getenv('TAKE_PROFIT_MULTIPLIER'))
             if os.getenv('STOP_LOSS_MULTIPLIER'):
