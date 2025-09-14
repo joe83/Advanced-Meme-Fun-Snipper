@@ -1,0 +1,13 @@
+# requirements.txt - Dependencies for the sniping bot
+asyncio
+base58
+base64
+dotenv
+jupiter-python-sdk
+openai
+pymongo
+python-telegram-bot
+requests
+solana
+solders
+websocket-client
