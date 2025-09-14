@@ -1,13 +1,14 @@
 # requirements.txt - Dependencies for the sniping bot
-asyncio
-base58
-base64
-dotenv
-jupiter-python-sdk
-openai
-pymongo
-python-telegram-bot
-requests
-solana
-solders
-websocket-client
+python-dotenv>=1.0.0
+base58>=2.1.1
+requests>=2.31.0
+websocket-client>=1.6.0
+pymongo>=4.5.0
+python-telegram-bot>=20.0
+openai>=1.0.0
+solana>=0.32.0
+solders>=0.21.0
+jupiter-python-sdk>=0.0.2.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+tenacity>=8.0.0
